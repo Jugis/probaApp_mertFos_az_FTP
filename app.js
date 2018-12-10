@@ -20,8 +20,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/users', usersRouter);
-
 var pool = mysql.createPool({
     connectionLimit: 20,
     host: '46.29.163.22',
@@ -32,4 +30,9 @@ var pool = mysql.createPool({
 
 app.listen('4000', () => {
     console.log('Server listening on PORT 4000');
+    pool.query('SELECT * FROM probaTable', (error, results, fields) => {
+        if (error) res.send(error);
+
+        console.log(results);
+    });
 });
